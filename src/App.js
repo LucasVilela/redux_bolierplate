@@ -1,8 +1,23 @@
 import React, { Component } from "react";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+
+import * as actionCreators from "./actions/actionCreators";
+
 import logo from "./logo.svg";
 import "./App.css";
 
-class App extends Component {
+function mapStateToProps(state) {
+  return {
+    state
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(actionCreators, dispatch);
+}
+
+class Container extends Component {
   render() {
     return (
       <div className="App">
@@ -10,12 +25,18 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h2>Welcome to React</h2>
         </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <button
+          onClick={() => {
+            this.props.testAction();
+          }}
+        >
+          Test Dispatcher
+        </button>
       </div>
     );
   }
 }
+
+const App = connect(mapStateToProps, mapDispatchToProps)(Container);
 
 export default App;
