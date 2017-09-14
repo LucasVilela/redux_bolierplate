@@ -18,6 +18,13 @@ function mapDispatchToProps(dispatch) {
 }
 
 class Container extends Component {
+  onFormSubmit = evt => {
+    const name = this.refs.name.value;
+    this.props.testAction(name);
+    this.refs.name.value = "";
+    evt.preventDefault();
+  };
+
   render() {
     return (
       <div className="App">
@@ -25,13 +32,18 @@ class Container extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h2>Welcome to React</h2>
         </div>
-        <button
-          onClick={() => {
-            this.props.testAction();
-          }}
-        >
-          Test Dispatcher
-        </button>
+        <div>
+          <h3>On global state</h3>
+          {this.props.state.map((element, index) => (
+            <p key={index}>{element}</p>
+          ))}
+        </div>
+        <div className="form">
+          <form onSubmit={this.onFormSubmit}>
+            <input placeholder="Name" ref="name" />
+            <input type="submit" />
+          </form>
+        </div>
       </div>
     );
   }

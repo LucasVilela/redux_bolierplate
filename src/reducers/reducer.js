@@ -1,8 +1,7 @@
 function reducer(state = [], action) {
   switch (action.type) {
     case "TEST_ACTION":
-      console.log("TEST ACTION received on the reducer");
-      break;
+      return [...state, action.payload.name];
     default:
       return state;
   }
